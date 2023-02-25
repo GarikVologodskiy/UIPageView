@@ -8,22 +8,36 @@
 import UIKit
 
 class PageViewController: UIPageViewController {
+    
+    let presentScreenContent = [
+    "The first page of the presentation about app",
+    "The second page of he presentation about some feature",
+    "The third page of presentation about some interesting",
+    "The fourth page of presentation about on a good jorney!"
+    ]
+    
+    let emojiArray = ["🤗", "🤠", "😵‍💫", "🫶"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        if let contentViewController = showViewControllerAtIndex(0) {
+            setViewControllers([contentViewController], direction: .forward, animated: true, completion: nil)
+        }        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func showViewControllerAtIndex (_ index: Int) -> ContentViewController? {
+        
+        guard index >= 0 else { return nil }
+        guard index < presentScreenContent.count else { return nil }
+        guard let contentViewController = storyboard?.instantiateViewController(withIdentifier: "ContentViewController") as? ContentViewController else { return nil }
+        
+        contentViewController.presentText = presentScreenContent[index]
+        contentViewController.emoji = emojiArray[index]
+        contentViewController.currentPage = index
+        contentViewController.numberOfPages = presentScreenContent.count
+        
+        return contentViewController
     }
-    */
 
 }
