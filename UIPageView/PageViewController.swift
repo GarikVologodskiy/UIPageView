@@ -33,6 +33,8 @@ class PageViewController: UIPageViewController {
         
         guard index >= 0 else { return nil }
         guard index < presentScreenContent.count else {
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(true, forKey: "thePresentationHasBeenViewed")
             dismiss(animated: true, completion: nil)
             return nil
             
